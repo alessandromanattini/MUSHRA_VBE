@@ -1,0 +1,6 @@
+Flask==3.0.0
+pyngrok==7.0.5
+gdown==5.1.0
+tinydb==4.8.0
+click==8.1.7
+Werkzeug==3.0.1
