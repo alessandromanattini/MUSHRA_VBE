@@ -22,10 +22,14 @@ try:
     # Open database (don't use 'with' statement - let it stay open)
     db = TinyDB('db/webmushra.json', create_dirs=True)
     service.app.config['db'] = db
-    
-    print("🌐 Starting Flask server on port 5000...", flush=True)
+
+    # Determine port for the MUSHRA server. Use START_SERVER_PORT if set,
+    # otherwise default to 5000. This lets the launcher run on Render's $PORT
+    # while the MUSHRA server listens on an internal port.
+    start_port = int(os.environ.get('START_SERVER_PORT', 5000))
+    print(f"🌐 Starting Flask server on port {start_port}...", flush=True)
     # Run WITHOUT debug mode and WITHOUT reloader
-    service.app.run(debug=False, use_reloader=False, host='0.0.0.0', port=5000)
+    service.app.run(debug=False, use_reloader=False, host='0.0.0.0', port=start_port)
 except Exception as e:
     print(f"❌ Error starting server: {e}", flush=True)
     import traceback

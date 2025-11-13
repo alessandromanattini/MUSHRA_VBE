@@ -14,6 +14,13 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+
+@app.route('/favicon.ico')
+def favicon():
+    """Return a tiny inline SVG as favicon to avoid 404 in browser requests."""
+    svg = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect fill="#667eea" width="64" height="64"/><path fill="#fff" d="M42 10v26.1A8 8 0 1 1 34 44V26l-12 3v6a8 8 0 1 1-8 0V12h28z"/></svg>'''
+    return app.response_class(svg, mimetype='image/svg+xml')
+
 # Global state
 test_status = {
     'running': False,
@@ -24,7 +31,28 @@ test_status = {
     'process': None
 }
 
-NGROK_AUTH_TOKEN = "35L9KVSgq2mFnuharcKkU8ea50v_44VvwumxAFKtDswqY3bp"
+def load_dotenv(dotenv_path=".env"):
+    """Lightweight .env loader: set variables into os.environ if not already present."""
+    if not os.path.exists(dotenv_path):
+        return
+    with open(dotenv_path, "r", encoding="utf-8") as f:
+        for raw in f:
+            line = raw.strip()
+            if not line or line.startswith('#'):
+                continue
+            if '=' not in line:
+                continue
+            key, val = line.split('=', 1)
+            key = key.strip()
+            val = val.strip().strip('"').strip("'")
+            # don't override existing environment variables
+            if key and key not in os.environ:
+                os.environ[key] = val
+
+
+# Load .env if present, then read token from environment
+load_dotenv()
+NGROK_AUTH_TOKEN = os.environ.get('NGROK_AUTH_TOKEN')
 
 
 def setup_environment():
