@@ -70,7 +70,12 @@ def setup_environment():
     
     # Install dependencies
     print("Installing dependencies...")
-    subprocess.run(f"{sys.executable} -m pip install -q pyngrok gdown flask", shell=True)
+    # Respect DOWNLOAD_ASSETS env var: if false, don't install gdown
+    download_assets = os.environ.get('DOWNLOAD_ASSETS', 'true').lower() in ('1', 'true', 'yes')
+    pip_pkgs = "pyngrok flask"
+    if download_assets:
+        pip_pkgs += " gdown"
+    subprocess.run(f"{sys.executable} -m pip install -q {pip_pkgs}", shell=True)
     subprocess.run(f"{sys.executable} -m pip install -q -e git+https://github.com/nils-werner/pymushra.git#egg=pymushra", shell=True)
 
 
@@ -131,7 +136,12 @@ def start_test():
     try:
         # Setup
         setup_environment()
-        download_and_prepare_assets()
+        # Download assets only if enabled by env var DOWNLOAD_ASSETS
+        download_assets = os.environ.get('DOWNLOAD_ASSETS', 'true').lower() in ('1', 'true', 'yes')
+        if download_assets:
+            download_and_prepare_assets()
+        else:
+            print("⚠️ DOWNLOAD_ASSETS is false: skipping asset download.")
         configure_yaml()
         
         # Start ngrok tunnel
