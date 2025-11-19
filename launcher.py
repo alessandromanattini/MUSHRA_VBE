@@ -57,7 +57,7 @@ NGROK_AUTH_TOKEN = os.environ.get('NGROK_AUTH_TOKEN')
 
 def setup_environment():
     """Setup directories and clone repositories if needed"""
-    print("📂 Setting up environment...")
+    print("Setting up environment...")
     os.makedirs("db", exist_ok=True)
     
     if not os.path.exists("webmushra"):
@@ -85,7 +85,7 @@ def download_and_prepare_assets():
         print("Assets already present, skipping download...")
         return
     
-    print("📦 Downloading assets...")
+    print(" Downloading assets...")
     id_file_zip = "1iglOAekwR9_3C1xus-EFvCzhjVwsgGlh"
     subprocess.run(f"{sys.executable} -m gdown --id \"{id_file_zip}\" -O assets_test.zip", shell=True, check=True)
     subprocess.run("unzip -q -o assets_test.zip", shell=True, check=True)
@@ -97,7 +97,7 @@ def download_and_prepare_assets():
 
 def configure_yaml():
     """Configure YAML file"""
-    print("📝 Configuring YAML...")
+    print(" Configuring YAML...")
     source_path = "webmushra/MUSHRA_COLAB/VBE_Test_drive.yaml"
     dest_path = "webmushra/configs"
     
@@ -141,11 +141,11 @@ def start_test():
         if download_assets:
             download_and_prepare_assets()
         else:
-            print("⚠️ DOWNLOAD_ASSETS is false: skipping asset download.")
+            print("DOWNLOAD_ASSETS is false: skipping asset download.")
         configure_yaml()
         
         # Start ngrok tunnel
-        print("🔗 Starting ngrok tunnel...")
+        print("Starting ngrok tunnel...")
         ngrok.set_auth_token(NGROK_AUTH_TOKEN)
         tunnel = ngrok.connect(5000)
         
@@ -154,7 +154,7 @@ def start_test():
         test_status['admin_url'] = f"{tunnel.public_url}/admin"
         test_status['start_time'] = datetime.now().isoformat()
         
-        print(f"✅ Test ready at: {test_status['participant_url']}")
+        print(f"Test ready at: {test_status['participant_url']}")
         
         # Start pymushra server in a separate process
         proc = start_pymushra_server()
@@ -167,7 +167,7 @@ def start_test():
         
         return True
     except Exception as e:
-        print(f"❌ Error starting test: {e}")
+        print(f" Error starting test: {e}")
         import traceback
         traceback.print_exc()
         test_status['running'] = False
@@ -266,10 +266,10 @@ def download_results():
 
 if __name__ == '__main__':
     print("="*60)
-    print("🎵 MUSHRA Test Launcher")
+    print(" MUSHRA Test Launcher")
     print("="*60)
-    print("\n📱 Open your browser at: http://localhost:8080")
-    print("\n💡 Use the web interface to:")
+    print("\n Open your browser at: http://localhost:8080")
+    print("\n Use the web interface to:")
     print("   - Start/stop MUSHRA tests")
     print("   - Get participant links")
     print("   - Download results")

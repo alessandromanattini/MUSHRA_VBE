@@ -7,11 +7,11 @@ import os
 def run_command(command):
     """Esegue un comando shell e controlla se ci sono errori."""
     try:
-        print(f"▶️ Eseguo: {command}")
+        print(f"Eseguo: {command}")
         # Usiamo shell=True per interpretare comandi complessi, ma fai attenzione con input non fidati
         subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
-        print(f"❌ Errore durante l'esecuzione del comando: {command}", file=sys.stderr)
+        print(f"Errore durante l'esecuzione del comando: {command}", file=sys.stderr)
         print(f"Output: {e.stdout}", file=sys.stderr)
         print(f"Errore: {e.stderr}", file=sys.stderr)
         sys.exit(1)
@@ -29,13 +29,13 @@ NGROK_AUTH_TOKEN = os.environ.get("35Q9YMfKNh6AoABlWXtjB8HllrW_5fgbZvpeoCsWzwz27
 # Flask's reloader imposta WERKZEUG_RUN_MAIN quando riavvia
 if __name__ == "__main__" and not os.environ.get('WERKZEUG_RUN_MAIN'):
     # 1. Installazione dipendenze
-    print("⚙️ 1. Installazione dipendenze...")
+    print("1. Installazione dipendenze...")
     # Non installiamo 'gdown' e non scarichiamo asset qui: gli audio sono presi da GitHub
     run_command(f"{sys.executable} -m pip install -q pyngrok")
     run_command(f"{sys.executable} -m pip install -q -e git+https://github.com/nils-werner/pymushra.git#egg=pymushra")
     from pyngrok import ngrok
     # 2. Setup delle cartelle e download
-    print("📂 2. Download e setup dei file...")
+    print("2. Download e setup dei file...")
     os.makedirs("db", exist_ok=True)
     if not os.path.exists("webmushra"):
         run_command("git clone -q https://github.com/audiolabs/webMUSHRA.git webmushra")
@@ -43,7 +43,7 @@ if __name__ == "__main__" and not os.environ.get('WERKZEUG_RUN_MAIN'):
         run_command("git clone -q https://github.com/nils-werner/pymushra.git pymushra")
 
     # # 3. Download e preparazione degli assets del test
-    # print("📦 3. Preparazione degli assets...")
+    # print(" 3. Preparazione degli assets...")
     # id_file_zip = "1iglOAekwR9_3C1xus-EFvCzhjVwsgGlh"
     # run_command(f"{sys.executable} -m gdown --id \"{id_file_zip}\" -O assets_test.zip")
     # # Estrae nella cartella corrente e sovrascrive
@@ -54,7 +54,7 @@ if __name__ == "__main__" and not os.environ.get('WERKZEUG_RUN_MAIN'):
     # run_command("mv MUSHRA_COLAB webmushra/")
 
     # # 4. Configurazione del test
-    # print("📝 4. Configurazione del file YAML...")
+    # print(" 4. Configurazione del file YAML...")
     # # I percorsi sono ora relativi, non più /content/
     # source_path_yaml = "webmushra/MUSHRA_COLAB/VBE_Test_drive.yaml"
     # destination_path = "webmushra/configs"
@@ -65,7 +65,7 @@ if __name__ == "__main__" and not os.environ.get('WERKZEUG_RUN_MAIN'):
     # print(f"File VBE_Test_drive.yaml copiato in {destination_path}")
 
     # 5. Avvio Ngrok e STAMPA DEGLI URL (se presente il token)
-    print("🔗 5. Avvio del tunnel Ngrok... (se NGROK_AUTH_TOKEN è impostato)")
+    print("5. Avvio del tunnel Ngrok... (se NGROK_AUTH_TOKEN è impostato)")
     if NGROK_AUTH_TOKEN:
         try:
             ngrok.set_auth_token(NGROK_AUTH_TOKEN)
@@ -74,24 +74,24 @@ if __name__ == "__main__" and not os.environ.get('WERKZEUG_RUN_MAIN'):
             admin_url = f"{ngrok_tunnel.public_url}/admin"
         except Exception as e:
             # If ngrok fails (invalid token, network), fall back to local URLs
-            print(f"⚠️ ngrok failed to start: {e}")
+            print(f"ngrok failed to start: {e}")
             participant_url = "http://localhost:5000/?config=VBE_Test_drive.yaml"
             admin_url = "http://localhost:5000/admin"
     else:
-        print("⚠️ NGROK_AUTH_TOKEN non impostato: salto il tunnel ngrok e uso gli URL locali.")
+        print("NGROK_AUTH_TOKEN non impostato: salto il tunnel ngrok e uso gli URL locali.")
         participant_url = "http://localhost:5000/?config=VBE_Test_drive.yaml"
         admin_url = "http://localhost:5000/admin"
 
     print("\n" + "="*60)
-    print("🚀 IL TUO TEST È PRONTO! 🚀")
+    print("IL TUO TEST È PRONTO! 🚀")
     print("\nQuesto è il link da inviare ai partecipanti:")
-    print(f"👉   {participant_url}")
+    print(f"   {participant_url}")
     print("\n(Questo è il link per la pagina di amministrazione):")
-    print(f"👉   {admin_url}")
+    print(f"   {admin_url}")
     print("="*60 + "\n")
 
     # 6. Avvio del server MUSHRA (COME ULTIMA COSA)
-    print("🖥️ 6. Avvio del server pymushra... (I log appariranno qui sotto)")
+    print("6. Avvio del server pymushra... (I log appariranno qui sotto)")
     print("Il server è ora attivo agli URL stampati sopra.")
     print("Non chiudere questa finestra del terminale.")
 
