@@ -83,7 +83,7 @@ if __name__ == "__main__" and not os.environ.get('WERKZEUG_RUN_MAIN'):
         admin_url = "http://localhost:5000/admin"
 
     print("\n" + "="*60)
-    print("IL TUO TEST È PRONTO! 🚀")
+    print("IL TUO TEST È PRONTO!")
     print("\nQuesto è il link da inviare ai partecipanti:")
     print(f"   {participant_url}")
     print("\n(Questo è il link per la pagina di amministrazione):")
