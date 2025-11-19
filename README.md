@@ -5,13 +5,6 @@ link: [MUSHRA TEST](https://mushra-vbe-2.onrender.com)
 
 Una web interface completa per gestire test MUSHRA di qualità audio.
 
-## Caratteristiche
-
-✅ **Interface Web Intuitiva** - Avvia test con un click  
-✅ **Link Automatici** - Genera automaticamente i link ngrok per i partecipanti  
-✅ **Gestione Risultati** - Scarica e visualizza i risultati dei test  
-✅ **Auto-Setup** - Installa automaticamente tutte le dipendenze necessarie
-
 ## Come Usare
 
 ### 1. Avvia il Launcher
@@ -36,7 +29,7 @@ Vai su: **http://localhost:8080**
 
 I risultati vengono salvati in `db/webmushra.json` e contengono:
 
-- **Risposte dei partecipanti** - Tutti i rating e commenti
+- **Risposte dei partecipanti** - Tutti i rating 
 - **Timestamp** - Quando ogni risposta è stata inviata
 - **Metadata** - Informazioni sul browser, sessione, ecc.
 
@@ -46,11 +39,8 @@ I risultati vengono salvati in `db/webmushra.json` e contengono:
 - Clicca "📥 Scarica Risultati" nella web interface
 - Il file JSON verrà scaricato automaticamente
 
-**Opzione 2: Visualizza nel Browser**
-- Clicca "📊 Visualizza Risultati"
-- I dati verranno mostrati in formato JSON leggibile
 
-**Opzione 3: Manuale**
+**Opzione 2: Manuale**
 ```bash
 # Copia il file dei risultati
 cp db/webmushra.json risultati_$(date +%Y%m%d).json
@@ -119,7 +109,6 @@ test_status['participant_url'] = f"{tunnel.public_url}/?config=TUO_FILE.yaml"
 - Controlla i log nel terminale
 
 ### Link ngrok non funziona
-- Verifica che il token ngrok sia corretto in `launcher.py`
 - Controlla che non ci siano firewall che bloccano ngrok
 
 ### Risultati non si scaricano
@@ -127,8 +116,7 @@ test_status['participant_url'] = f"{tunnel.public_url}/?config=TUO_FILE.yaml"
 - Assicurati che almeno un partecipante abbia completato il test
 
 ## Note Importanti
-
-⚠️ **Token Ngrok**: Il token nel file è quello fornito - cambiatelo se necessario  
+ 
 ⚠️ **Porta 5000**: Non avere altri servizi sulla porta 5000  
 ⚠️ **Backup Risultati**: Fai backup regolari di `db/webmushra.json`
 
@@ -140,4 +128,3 @@ Lo script `test.py` è ancora disponibile per uso standalone:
 python3 test.py
 ```
 
-Ma il launcher web è il metodo raccomandato! 🚀
