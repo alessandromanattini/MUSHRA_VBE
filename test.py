@@ -23,7 +23,7 @@ def run_command(command):
 # If the env var is not set, the script will skip creating an ngrok tunnel
 # and will use local URLs (http://localhost:5000/...).
 # ===================================================================
-NGROK_AUTH_TOKEN = os.environ.get("NGROK_AUTH_TOKEN")
+NGROK_AUTH_TOKEN = os.environ.get("35Q9YMfKNh6AoABlWXtjB8HllrW_5fgbZvpeoCsWzwz27swwR")
 
 # Proteggi il codice di setup dal reload di Flask
 # Flask's reloader imposta WERKZEUG_RUN_MAIN quando riavvia
