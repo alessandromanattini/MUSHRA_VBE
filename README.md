@@ -1,4 +1,4 @@
-link: [MUSHRA TEST](https://mushra-vbe-2.onrender.com)
+Per fare direttamente il test seguire il link: [MUSHRA TEST](https://mushra-vbe-2.onrender.com)
 
 
 # MUSHRA Test Launcher 🎵
