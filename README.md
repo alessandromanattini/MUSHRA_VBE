@@ -1,4 +1,4 @@
-Per fare direttamente il test seguire il link: [MUSHRA TEST]([https://launcher.mushra.cloudsidecompany.com/])
+Per fare direttamente il test seguire il link: [MUSHRA TEST](https://launcher.mushra.cloudsidecompany.com/)
 
 
 # MUSHRA Test Launcher 🎵
